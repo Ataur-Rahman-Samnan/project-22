@@ -73,19 +73,61 @@ class _BloodDonationHomeState extends State<BloodDonationHome> {
   }
 }
 
+// 📌 Updated HomeScreen with description & button
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Welcome',
-          style: TextStyle(
-              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue)),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            'Welcome to Blood Donor Community',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.redAccent,
+            ),
+          ),
+          const SizedBox(height: 10), // Space between texts
+          const Text(
+            'We connect donors with people in need. Join our mission to save lives by donating blood and helping those in emergencies.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.black87,
+              height: 1.5, // Improves readability
+            ),
+          ),
+          const SizedBox(height: 20), // Space before button
+          ElevatedButton(
+            onPressed: () {
+              // TODO: Add action
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text(
+              'Become a Donor',
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
+// Donor List Page
 class DonorListScreen extends StatelessWidget {
   const DonorListScreen({super.key});
 
@@ -144,6 +186,7 @@ class DonorListScreen extends StatelessWidget {
   }
 }
 
+// Donor Details Page
 class DonorDetailsScreen extends StatelessWidget {
   final String donorName;
 
@@ -176,6 +219,7 @@ class DonorDetailsScreen extends StatelessWidget {
   }
 }
 
+// Profile Page
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
