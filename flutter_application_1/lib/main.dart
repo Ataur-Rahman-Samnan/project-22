@@ -1,61 +1,82 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(BloodDonationApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class BloodDonationApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const MyHomePage(),
+      debugShowCheckedModeBanner: false,
+      home: BloodDonationHome(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
+class BloodDonationHome extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _BloodDonationHomeState createState() => _BloodDonationHomeState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _BloodDonationHomeState extends State<BloodDonationHome> {
+  int _currentIndex = 0;
+  final List<Widget> _pages = [
+    Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Welcome to Blood Donation',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.blueAccent,
+            ),
+          ),
+          SizedBox(
+              height:
+                  10), // Add some space between the title and the subheading
+          Text(
+            'Donate blood, save lives!',
+            style: TextStyle(
+              fontSize: 18,
+              fontStyle: FontStyle.italic,
+              color: Colors.blueGrey,
+            ),
+          ),
+        ],
+      ),
+    ),
+    Center(child: Text('Donor List', style: TextStyle(fontSize: 24))),
+    Center(child: Text('Profile', style: TextStyle(fontSize: 24))),
+  ];
 
-  void _incrementCounter() {
+  void _onTabTapped(int index) {
     setState(() {
-      _counter++;
+      _currentIndex = index;
     });
   }
-
-  //ajsdgvjhasd bas d
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue, // Set the AppBar color to blue
-        title: const Text("I am Lengra Tiyas"), // Title updated
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        title: Text('Blood Donation'),
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {},
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Donor List'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
       ),
     );
   }
