@@ -22,34 +22,9 @@ class BloodDonationHome extends StatefulWidget {
 class _BloodDonationHomeState extends State<BloodDonationHome> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
-    Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Welcome to Blood Donation',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: Colors.blueAccent,
-            ),
-          ),
-          SizedBox(
-              height:
-                  10), // Add some space between the title and the subheading
-          Text(
-            'Donate blood, save lives!',
-            style: TextStyle(
-              fontSize: 18,
-              fontStyle: FontStyle.italic,
-              color: Colors.blueGrey,
-            ),
-          ),
-        ],
-      ),
-    ),
-    Center(child: Text('Donor List', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Profile', style: TextStyle(fontSize: 24))),
+    HomeScreen(),
+    DonorListScreen(),
+    ProfileScreen(),
   ];
 
   void _onTabTapped(int index) {
@@ -79,5 +54,90 @@ class _BloodDonationHomeState extends State<BloodDonationHome> {
         ],
       ),
     );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text('Welcome', style: TextStyle(fontSize: 24)));
+  }
+}
+
+class DonorListScreen extends StatelessWidget {
+  final List<String> donors = ['Razin', 'Nahar', 'Rahat', 'Ataur', 'Tabib'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Donor List')),
+      body: GridView.builder(
+        padding: EdgeInsets.all(16),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+        ),
+        itemCount: donors.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      DonorDetailsScreen(donorName: donors[index]),
+                ),
+              );
+            },
+            child: Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Center(
+                child: Text(
+                  donors[index],
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class DonorDetailsScreen extends StatelessWidget {
+  final String donorName;
+
+  DonorDetailsScreen({required this.donorName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Donor Details')),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Name: $donorName', style: TextStyle(fontSize: 22)),
+            SizedBox(height: 10),
+            Text('Mobile: 01762839212', style: TextStyle(fontSize: 18)),
+            SizedBox(height: 10),
+            Text('Address: 682/9, Kafrul, Dhaka',
+                style: TextStyle(fontSize: 18)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text('Profile', style: TextStyle(fontSize: 24)));
   }
 }
